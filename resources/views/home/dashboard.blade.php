@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sisfo KBU</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/mainstyle.css">
+    
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!--Sidebar-->
+        <div class="bg-dark" id="sidebar-wrapper">
+            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"> <h5 class="text-light">Sisfo KBU</h5></div>
+            <div class="list-group list-group-flush my-3">
+                <a href="#" class="list-group-item list-group-item-action bg-trasparent second-text active"><i class="ri-dashboard-2-line"></i><h6 class="text-light">Dashboard Utama</h6></a>
+                {{-- <a href="#" class="list-group-item list-group-item-action bg-dark second-text fw-bold"><i class="ri-bank-card-line text-light"></i><h6 class="text-light">Menu Kasir</h6></a> --}}
+                <a href="{{ url('manageproduct')}}" class="list-group-item list-group-item-action bg-dark second-text fw-bold"><i class="ri-draft-line text-light"></i><h6 class="text-light">Kelola Barang</h6></a>
+                <a href="{{ url('historysell')}}" class="list-group-item list-group-item-action bg-dark second-text fw-bold"><i class="ri-file-history-line text-light"></i><h6 class="text-light">Riwayat Penjualan</h6></a>
+                <a href="{{ route('actionlogout')}}" class="list-group-item list-group-item-action bg-dark second-text fw-bold"><i class="ri-logout-box-r-line text-light"></i><h6 class="text-light">Logout</h6></a>
+            </div>
+        </div>
+        <!--
+            Sidebar End
+        -->
+        
+        <!--
+            Page Content
+        -->
+            <div id="page-content-wrapper">
+                <nav class="navbar navbar-expand-lg navbar-light bg-trasparent py-4 px-4">
+                    <div class="d-flex align-items-center">
+                        <i class="ri-dashboard-2-fill ri-2x" id="menu-toggle">
+                        </i><h2 class="fs-2 m-0">Dashboard Utama</h2>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="ri-user-2-fill ri-xl"></i>{{Auth::user()->name}}</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ route('actionlogout')}}">Logout</a></li>
+                    </ul>
+                    </li>
+                </ul>
+            </div>
+                </nav>
+
+                <!--Content Here-->
+                <div class="container-fluid px-4">
+                    <div class="row g-3 my-2">
+                        <div class="col-md-3">
+                            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                                <div>
+                                    <h3 class="fs-2">Rp {{$dataTotalProfit->sum('totalprice')}}</h3>
+                                    <p class="fs-5">Total Pendapatan</p>
+                                </div>
+                                <i class="ri-wallet-2-fill ri-xl"></i>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                                <div>
+                                    <h3 class="fs-2">{{$dataTotalSell->sum('quantity')}}</h3>
+                                    <p class="fs-5">Total Penjualan</p>
+                                </div>
+                                <i
+                                    class="ri-shopping-bag-3-fill ri-xl"></i>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3">
+                            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                                <div>
+                                    <h3 class="fs-2">{{$dataTotalProduct->sum('quantity')}}</h3>
+                                    <p class="fs-5">Total Aset Barang</p>
+                                </div>
+                                <i class="ri-archive-fill ri-xl"></i>
+                            </div>
+                        </div>
+
+                        <div class="row my-5">
+                            <h3 class="fs-4 mb-3">Daftar Catatan</h3>
+                           {{-- <div class="fs-4 mb-3"><button type="button" class="btn btn-primary">+ Tambah Catatan</button></div> --}}
+                           <div class="fs-4 mb-3" >
+                            <a href='{{ url('dashboard/create')}}' class="btn btn-primary">+ Tambah Data</a>
+
+                           </div>
+
+                           <form class="d-flex fs-4 mb-3" action="{{ url('dashboard') }}" method="get">
+                            <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" placeholder="Masukkan kata kunci" aria-label="Search">
+                            <button class="btn btn-dark" type="submit">Cari</button>
+                        </form>
+            
+                            <div class="col">
+                                <table class="table bg-white rounded shadow-sm  table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" width="50">No</th>
+                                            <th scope="col">Catatan</th>
+                                            <th scope="col">Pembuat(Pegawai)</th>
+                                            <th scope="col">Tanggal/Waktu Dibuat</th>
+                                            <th scope="col" class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = $data->firstItem() ?>
+                                        @foreach ($data as $item)
+                                        <tr>
+                                            <th scope="row">{{$i}}</th>
+                                            <td>{{ $item->content}}</td>
+                                            <td>{{ $item->owner}}</td>
+                                            <td>{{ $item->created_at}}</td>
+                                            <td class="text-center">
+                                                <a href='{{ url('dashboard/'.$item->id.'/edit')}}' class="btn btn-success">Edit</a>
+                                                <form onsubmit="return confirm('Ingin Menghapus Data Ini ?')" class="d-inline" action="{{ url('dashboard/'.$item->id)}}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                <button type="submit" name="submit" class="btn btn-danger">Hapus</button>
+                                                </form>
+                                            </td>    
+                                        </tr>
+                                        <?php $i++ ?>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                {{ $data->withQueryString()->links()}}
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+                <!--End Content Here-->
+            </div>
+        <!--
+            Page Content End
+        -->
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>

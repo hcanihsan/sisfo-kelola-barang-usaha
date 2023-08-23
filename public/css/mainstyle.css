@@ -1,0 +1,29 @@
+
+#sidebar-wrapper {
+    min-height: 100vh;
+}
+
+#sidebar-wrapper .list-group {
+    width: 10rem;
+}
+/*   
+  #sidebar-wrapper {
+    min-height: 100vh;
+    
+    
+  }
+  
+  
+  #sidebar-wrapper .list-group {
+    width: 10rem;
+  } */
+  
+  /* #page-content-wrapper {
+    min-width: 100vw;
+  }
+  
+
+.list-group-item {
+    border: none;
+    padding: 20px 30px;
+} */
